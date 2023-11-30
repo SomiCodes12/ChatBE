@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model authModel {
+  id String @id @default(uuid())
+
+  userName  String
+  email     String      @unique
+  password  String
+  requests  Json
+  friends   Json
+  following Json
+  followers Json
+  groups    groupModel[]
+  chats     chatModel[]
+  profile profileModel[]
+  createdAt DateTime    @default(now())
+}
+
+model profileModel {
+  id String @id @default(uuid())
+
+  userName    String?
+  location    String?
+  dateOfBirth String?
+  image       String?
+  coverPhoto  String?
+  
+  userID String
+  user authModel @relation(fields: [userID] , references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model chatModel {
+  id String @id @default(uuid())
+
+  members Json
+  userID  String
+  friendID String
+
+  user authModel @relation(fields: [userID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  messages messageModel[]
+
+  createdAt DateTime @default(now())
+}
+
+model messageModel {
+  id String @id @default(uuid())
+
+  chatID  String
+  userID  String
+  message String
+
+  chat chatModel @relation(fields: [chatID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model groupModel {
+  id String @id @default(uuid())
+
+  members       Json
+  adminID       String
+
+  userID String
+
+  user authModel @relation(fields: [userID] , references: [id])
+  groupMessages groupMessageModel[]
+
+  createdAt DateTime @default(now())
+}
+
+model groupMessageModel {
+  id String @id @default(uuid())
+
+  groupID String
+  userID  String
+  message String
+
+  groupModel groupModel @relation(fields: [groupID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model notifyModel{
+  id String @id @default(uuid())
+
+  notice Json
+
+  createdAt DateTime @default(now())
+}
