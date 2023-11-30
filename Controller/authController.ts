@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import amqplib from "amqplib";
+import { streamUpload } from "../Utils/streamifier";
 
 const prisma = new PrismaClient();
 
 export const createAccount = async (req: Request, res: Response) => {
   try {
     const { userName, email, password } = req.body;
+
+    const { secure_url, public_id }: any = await streamUpload(req);
 
     const account = await prisma.authModel.create({
       data: {
@@ -17,10 +20,13 @@ export const createAccount = async (req: Request, res: Response) => {
         requests: [],
         followers: [],
         following: [],
+        image : secure_url,
+        imageID : public_id 
       },
     });
 
-    const url: string = "	amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
+    // const url: string = "amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
+    const url = "amqp://localhost:5672";
     const connect = await amqplib.connect(url);
     const channel = await connect.createChannel();
 

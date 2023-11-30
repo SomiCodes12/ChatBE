@@ -14,12 +14,14 @@ model authModel {
   id String @id @default(uuid())
 
   userName  String
-  email     String      @unique
+  email     String      @unique 
   password  String
   requests  Json
   friends   Json
   following Json
   followers Json
+  image String
+  imageID String
   groups    groupModel[]
   chats     chatModel[]
   profile profileModel[]

@@ -31,7 +31,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 (0, mainApp_1.mainApp)(app);
 server.listen(port, () => {
-    console.log();
+    console.log("okay");
 });
 io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(socket.id);

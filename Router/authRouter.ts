@@ -1,9 +1,12 @@
 import { Router } from "express"
 import { addFriend, createAccount, deleteAccount, makeRequest, unFriend, viewAccounts, viewOneAccount } from "../Controller/authController";
+import multer from "multer";
 
 const router = Router();
 
-router.route("/create-account").post(createAccount);
+const myUpload = multer().single("image")
+
+router.route("/create-account").post(myUpload , createAccount);
 router.route("/view-accounts").get(viewAccounts);
 router.route("/:userID/view-account").get(viewOneAccount);
 router.route("/:userID/:friendID/make-request").patch(makeRequest);

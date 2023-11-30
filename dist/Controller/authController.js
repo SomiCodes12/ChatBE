@@ -15,10 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAccount = exports.unFriend = exports.addFriend = exports.makeRequest = exports.viewOneAccount = exports.viewAccounts = exports.createAccount = void 0;
 const client_1 = require("@prisma/client");
 const amqplib_1 = __importDefault(require("amqplib"));
+const streamifier_1 = require("../Utils/streamifier");
 const prisma = new client_1.PrismaClient();
 const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userName, email, password } = req.body;
+        const { secure_url, public_id } = yield (0, streamifier_1.streamUpload)(req);
         const account = yield prisma.authModel.create({
             data: {
                 userName,
@@ -28,9 +30,12 @@ const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 requests: [],
                 followers: [],
                 following: [],
+                image: secure_url,
+                imageID: public_id
             },
         });
-        const url = "	amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
+        // const url: string = "amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
+        const url = "amqp://localhost:5672";
         const connect = yield amqplib_1.default.connect(url);
         const channel = yield connect.createChannel();
         yield channel.sendToQueue("createAccount", Buffer.from(JSON.stringify(account)));

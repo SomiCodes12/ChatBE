@@ -22,7 +22,7 @@ app.use(express.json());
 
 mainApp(app);
 server.listen(port, () => {
-  console.log();
+  console.log("okay");
 });
 
 io.on(
