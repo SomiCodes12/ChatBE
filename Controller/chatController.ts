@@ -77,7 +77,7 @@ export const createChat = async (req: Request, res: Response) => {
         message: "Users Not Found",
       });
     }
-  } catch (error) {
+  } catch (error : any) {
     return res.status(400).json({
       message: "Error Creating Chat",
       data: error.message,
@@ -93,7 +93,7 @@ export const findChats = async (req: Request, res: Response) => {
       message: "Found Chats Successfuly",
       data: chat,
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(400).json({
       message: "Error Finding Chats",
       data: error.message,
@@ -115,7 +115,7 @@ export const findUserChats = async (req: Request, res: Response) => {
       message: "Found User Chats Successfuly",
       data: user,
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(400).json({
       message: "Error Finding Chats",
       data: error.message,
@@ -141,7 +141,7 @@ export const findOneUserChat = async (req: Request, res: Response) => {
       message: "Found User's Chat Successfuly",
       data: chat,
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(400).json({
       message: "Error Finding Chat",
       data: error.message,
@@ -200,7 +200,7 @@ export const deleteChat = async (req: Request, res: Response) => {
         message: "Unexisting Chat",
       });
     }
-  } catch (error) {
+  } catch (error : any) {
     return res.status(400).json({
       message: "Error Deleting Chat",
       data: error.message,

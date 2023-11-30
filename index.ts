@@ -32,7 +32,7 @@ io.on(
   ) => {
     console.log(socket.id);
 
-    const url: string = "amqp://localhost:5672";
+    const url: string = "	amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
     const data : any = [];
 
     const connect = await amqplib.connect(url);

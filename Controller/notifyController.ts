@@ -19,7 +19,7 @@ export const createNotice = async (req: Request, res: Response) => {
       message: "Created Notice Successfully",
       data: noticeCreate,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Creating Notice",
       data: error.message,

@@ -69,7 +69,7 @@ export const createMessage = async (req: Request, res: Response) => {
         message: "You are not a member of this chat",
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Creating Message",
       data: error.message,
@@ -89,7 +89,7 @@ export const findChatMessages = async (req: Request, res: Response) => {
       message: "Found Messages Successfully",
       data: chat,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Finding Messages",
       data: error.message,
@@ -105,7 +105,7 @@ export const deleteMessage = async (req: Request, res: Response) => {
       message: "Found Messages Successfully",
       data: chatMessage,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Finding Messages",
       data: error.message,

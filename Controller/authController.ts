@@ -20,7 +20,7 @@ export const createAccount = async (req: Request, res: Response) => {
       },
     });
 
-    const url: string = "amqp://localhost:5672";
+    const url: string = "	amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
     const connect = await amqplib.connect(url);
     const channel = await connect.createChannel();
 
@@ -33,7 +33,7 @@ export const createAccount = async (req: Request, res: Response) => {
       message: "Created Account Successfully",
       data: account,
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(400).json({
       message: "Error Creating Account",
       data: error.message,
@@ -49,7 +49,7 @@ export const viewAccounts = async (req: Request, res: Response) => {
       message: "Viewed Accounts Successfully",
       data: accounts,
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(404).json({
       message: "Error Viewing Account",
       data: error.message,
@@ -70,7 +70,7 @@ export const viewOneAccount = async (req: Request, res: Response) => {
       message: "Viewed Account Successfully",
       data: account,
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(404).json({
       message: "Error Viewing Account",
       data: error.message,
@@ -258,7 +258,7 @@ export const unFriend = async (req: Request, res: Response) => {
         message: "Account(s) Not Found",
       });
     }
-  } catch (error) {
+  } catch (error : any) {
     return res.status(404).json({
       message: "Error Adding Friend",
       data: error.message,
@@ -278,7 +278,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
     return res.status(200).json({
       message: "Deleted Account Successfully",
     });
-  } catch (error) {
+  } catch (error : any) {
     return res.status(404).json({
       message: "Error Deleting Account",
       data: error.message,

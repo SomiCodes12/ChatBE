@@ -37,7 +37,7 @@ export const createGroupMessage = async (req: Request, res: Response) => {
         message: "You ain't a member",
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Creating Group Message",
       data: error.message,
@@ -65,7 +65,7 @@ export const viewGroupMessage = async (req: Request, res: Response) => {
         message: "You ain't a member",
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Viewing Group Message",
       data: error.message,
@@ -107,7 +107,7 @@ export const deleteGroupMessage = async (req: Request, res: Response) => {
       });
     }
 
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Deleting Group Message",
       data: error.message,

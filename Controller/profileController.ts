@@ -24,7 +24,7 @@ export const createProfile = async (req: Request, res: Response) => {
       message: "Created Profile Successfully",
       data: profile,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Creating Profile",
       data: error.message,
@@ -48,7 +48,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
       message: "Updated Profile Successfully",
       data: profile,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Updating Profile",
       data: error.message,

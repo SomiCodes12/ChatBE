@@ -140,7 +140,7 @@ export const deleteGroupMember = async (req: Request, res: Response) => {
         message: "User Not Found",
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Deleting Group Member",
       data: error.message,
@@ -162,7 +162,7 @@ export const viewUserGroup = async (req: Request, res: Response) => {
       message: "Viewed Group Successfully",
       data: user,
     });
-  } catch (error) {
+  } catch (error:any) {
     return res.status(400).json({
       message: "Error Joining Group",
       data: error.message,
@@ -182,7 +182,7 @@ export const viewOneGroup = async (req: Request, res: Response) => {
       message: "Viewed Group Successfully",
       data: viewed,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Joining Group",
       data: error.message,
@@ -258,7 +258,7 @@ export const deleteGroup = async (req: Request, res: Response) => {
         message: "You ain't authorised to do this",
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Deleting Group",
       data: error.message,
