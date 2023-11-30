@@ -25,8 +25,8 @@ export const createAccount = async (req: Request, res: Response) => {
       },
     });
 
-    // const url: string = "amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
-    const url = "amqp://localhost:5672";
+    const url: string = "amqps://oqoilczw:B9TFq2M5dEW2S6MJY_DLds6W-HdCnE71@armadillo.rmq.cloudamqp.com/oqoilczw";
+    // const url = "amqp://localhost:5672";
     const connect = await amqplib.connect(url);
     const channel = await connect.createChannel();
 

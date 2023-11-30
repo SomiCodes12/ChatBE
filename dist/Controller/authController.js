@@ -34,8 +34,8 @@ const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 imageID: public_id
             },
         });
-        // const url: string = "amqps://oqoilczw:***@armadillo.rmq.cloudamqp.com/oqoilczw";
-        const url = "amqp://localhost:5672";
+        const url = "amqps://oqoilczw:B9TFq2M5dEW2S6MJY_DLds6W-HdCnE71@armadillo.rmq.cloudamqp.com/oqoilczw";
+        // const url = "amqp://localhost:5672";
         const connect = yield amqplib_1.default.connect(url);
         const channel = yield connect.createChannel();
         yield channel.sendToQueue("createAccount", Buffer.from(JSON.stringify(account)));
