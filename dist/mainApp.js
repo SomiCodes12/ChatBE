@@ -16,6 +16,19 @@ const profileRouter_1 = __importDefault(require("./Router/profileRouter"));
 const mainApp = (app) => {
     app.use(express_1.default.json());
     app.use((0, cors_1.default)());
+    app.get("/", (req, res) => {
+        try {
+            return res.status(200).json({
+                message: "Welcome to Our Chat App 😊😊"
+            });
+        }
+        catch (error) {
+            return res.status(400).json({
+                message: `API Error${error.message}`,
+                reason: error
+            });
+        }
+    });
     app.use("/api/v1", authRouter_1.default);
     app.use("/api/v1", chatRouter_1.default);
     app.use("/api/v1", messageRouter_1.default);
