@@ -97,7 +97,7 @@ export const findChats = async (req: Request, res: Response) => {
     return res.status(400).json({
       message: "Error Finding Chats",
       data: error.message,
-    });
+    }); 
   }
 };
 

@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const createAccount = async (req: Request, res: Response) => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password , image } = req.body;
 
     const { secure_url, public_id }: any = await streamUpload(req);
 
@@ -20,12 +20,13 @@ export const createAccount = async (req: Request, res: Response) => {
         requests: [],
         followers: [],
         following: [],
-        image : secure_url,
-        imageID : public_id 
+        image: secure_url,
+        imageID: public_id,
       },
     });
 
-    const url: string = "amqps://oqoilczw:B9TFq2M5dEW2S6MJY_DLds6W-HdCnE71@armadillo.rmq.cloudamqp.com/oqoilczw";
+    const url: string =
+      "amqps://oqoilczw:B9TFq2M5dEW2S6MJY_DLds6W-HdCnE71@armadillo.rmq.cloudamqp.com/oqoilczw";
     // const url = "amqp://localhost:5672";
     const connect = await amqplib.connect(url);
     const channel = await connect.createChannel();
@@ -39,9 +40,41 @@ export const createAccount = async (req: Request, res: Response) => {
       message: "Created Account Successfully",
       data: account,
     });
-  } catch (error : any) {
+  } catch (error: any) {
     return res.status(400).json({
       message: "Error Creating Account",
+      data: error.message,
+    });
+  }
+};
+
+export const signInAccount = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await prisma.authModel.findFirst({
+      where: {
+        email: email,
+      },
+    });
+    if (user) {
+      if (user.password === password) {
+        return res.status(200).json({
+          message: "Signed In Account Successfully",
+        });
+      } else {
+        return res.status(400).json({
+          message: "Incorrect Password",
+        });
+      }
+    } else {
+      return res.status(400).json({
+        message: "You ain't a user",
+      });
+    }
+  } catch (error: any) {
+    return res.status(404).json({
+      message: "Error Signing In Account",
       data: error.message,
     });
   }
@@ -55,7 +88,7 @@ export const viewAccounts = async (req: Request, res: Response) => {
       message: "Viewed Accounts Successfully",
       data: accounts,
     });
-  } catch (error : any) {
+  } catch (error: any) {
     return res.status(404).json({
       message: "Error Viewing Account",
       data: error.message,
@@ -69,14 +102,15 @@ export const viewOneAccount = async (req: Request, res: Response) => {
     const account = await prisma.authModel.findUnique({
       where: {
         id: userID,
-      }, include : {groups : true}
+      },
+      include: { groups: true },
     });
 
     return res.status(200).json({
       message: "Viewed Account Successfully",
       data: account,
     });
-  } catch (error : any) {
+  } catch (error: any) {
     return res.status(404).json({
       message: "Error Viewing Account",
       data: error.message,
@@ -264,7 +298,7 @@ export const unFriend = async (req: Request, res: Response) => {
         message: "Account(s) Not Found",
       });
     }
-  } catch (error : any) {
+  } catch (error: any) {
     return res.status(404).json({
       message: "Error Adding Friend",
       data: error.message,
@@ -284,7 +318,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
     return res.status(200).json({
       message: "Deleted Account Successfully",
     });
-  } catch (error : any) {
+  } catch (error: any) {
     return res.status(404).json({
       message: "Error Deleting Account",
       data: error.message,

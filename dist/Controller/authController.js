@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAccount = exports.unFriend = exports.addFriend = exports.makeRequest = exports.viewOneAccount = exports.viewAccounts = exports.createAccount = void 0;
+exports.deleteAccount = exports.unFriend = exports.addFriend = exports.makeRequest = exports.viewOneAccount = exports.viewAccounts = exports.signInAccount = exports.createAccount = void 0;
 const client_1 = require("@prisma/client");
 const amqplib_1 = __importDefault(require("amqplib"));
 const streamifier_1 = require("../Utils/streamifier");
 const prisma = new client_1.PrismaClient();
 const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userName, email, password } = req.body;
+        const { userName, email, password, image } = req.body;
         const { secure_url, public_id } = yield (0, streamifier_1.streamUpload)(req);
         const account = yield prisma.authModel.create({
             data: {
@@ -31,7 +31,7 @@ const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 followers: [],
                 following: [],
                 image: secure_url,
-                imageID: public_id
+                imageID: public_id,
             },
         });
         const url = "amqps://oqoilczw:B9TFq2M5dEW2S6MJY_DLds6W-HdCnE71@armadillo.rmq.cloudamqp.com/oqoilczw";
@@ -52,6 +52,40 @@ const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createAccount = createAccount;
+const signInAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email, password } = req.body;
+        const user = yield prisma.authModel.findFirst({
+            where: {
+                email: email,
+            },
+        });
+        if (user) {
+            if (user.password === password) {
+                return res.status(200).json({
+                    message: "Signed In Account Successfully",
+                });
+            }
+            else {
+                return res.status(400).json({
+                    message: "Incorrect Password",
+                });
+            }
+        }
+        else {
+            return res.status(400).json({
+                message: "You ain't a user",
+            });
+        }
+    }
+    catch (error) {
+        return res.status(404).json({
+            message: "Error Signing In Account",
+            data: error.message,
+        });
+    }
+});
+exports.signInAccount = signInAccount;
 const viewAccounts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const accounts = yield prisma.authModel.findMany({});
@@ -74,7 +108,8 @@ const viewOneAccount = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const account = yield prisma.authModel.findUnique({
             where: {
                 id: userID,
-            }, include: { groups: true }
+            },
+            include: { groups: true },
         });
         return res.status(200).json({
             message: "Viewed Account Successfully",

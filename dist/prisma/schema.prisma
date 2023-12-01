@@ -16,10 +16,10 @@ model authModel {
   userName  String
   email     String      @unique 
   password  String
-  requests  Json
-  friends   Json
-  following Json
-  followers Json
+  requests  Json?
+  friends   Json?
+  following Json?
+  followers Json?
   image String
   imageID String
   groups    groupModel[]
