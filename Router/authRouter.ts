@@ -4,7 +4,7 @@ import multer from "multer";
 
 const router = Router();
 
-const myUpload = multer().single("image")
+const myUpload = multer().single("avatar")
 
 router.route("/create-account").post(myUpload , createAccount);
 router.route("/sign-in-account").post(signInAccount);

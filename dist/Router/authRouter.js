@@ -7,7 +7,7 @@ const express_1 = require("express");
 const authController_1 = require("../Controller/authController");
 const multer_1 = __importDefault(require("multer"));
 const router = (0, express_1.Router)();
-const myUpload = (0, multer_1.default)().single("image");
+const myUpload = (0, multer_1.default)().single("avatar");
 router.route("/create-account").post(myUpload, authController_1.createAccount);
 router.route("/sign-in-account").post(authController_1.signInAccount);
 router.route("/view-accounts").get(authController_1.viewAccounts);
