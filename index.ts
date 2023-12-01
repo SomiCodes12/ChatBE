@@ -6,7 +6,7 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import amqplib from "amqplib";
 import cors from "cors";
 
-const port: number = 1122;
+const port: number|string = process.env.port!||1122;
 const app: Application = express();
 const server = http.createServer(app);
 
