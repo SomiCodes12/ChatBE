@@ -17,7 +17,7 @@ const cloudinary_1 = __importDefault(require("./cloudinary"));
 const streamifier_1 = __importDefault(require("streamifier"));
 const streamUpload = (req) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
-        let stream = cloudinary_1.default.uploader.upload_stream((error, result) => {
+        let stream = yield cloudinary_1.default.uploader.upload_stream((error, result) => {
             if (result) {
                 return resolve(result);
             }
