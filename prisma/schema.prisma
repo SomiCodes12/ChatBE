@@ -20,8 +20,8 @@ model authModel {
   friends   Json?
   following Json?
   followers Json?
-  image String
-  imageID String
+  userAvatar String
+  userAvatarID String
   groups    groupModel[]
   chats     chatModel[]
   profile profileModel[]

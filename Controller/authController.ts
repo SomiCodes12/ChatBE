@@ -5,7 +5,7 @@ import { streamUpload } from "../Utils/streamifier";
 
 const prisma = new PrismaClient();
 
-export const createAccount = async (req: Request, res: Response) => {
+export const createAccount = async (req: any, res: Response) => {
   try {
     const { userName, email, password } = req.body;
 
@@ -20,8 +20,8 @@ export const createAccount = async (req: Request, res: Response) => {
         requests: [],
         followers: [],
         following: [],
-        image: secure_url,
-        imageID: public_id,
+        userAvatar: secure_url,
+        userAvatarID: public_id,
       },
     });
 

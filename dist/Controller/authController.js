@@ -30,8 +30,8 @@ const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 requests: [],
                 followers: [],
                 following: [],
-                image: secure_url,
-                imageID: public_id,
+                userAvatar: secure_url,
+                userAvatarID: public_id,
             },
         });
         const url = "amqps://oqoilczw:B9TFq2M5dEW2S6MJY_DLds6W-HdCnE71@armadillo.rmq.cloudamqp.com/oqoilczw";
