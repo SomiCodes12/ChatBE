@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const createAccount = async (req: Request, res: Response) => {
   try {
-    const { userName, email, password , image } = req.body;
+    const { userName, email, password } = req.body;
 
     const { secure_url, public_id }: any = await streamUpload(req);
 

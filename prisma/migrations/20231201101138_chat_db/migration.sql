@@ -4,10 +4,12 @@ CREATE TABLE "authModel" (
     "userName" STRING NOT NULL,
     "email" STRING NOT NULL,
     "password" STRING NOT NULL,
-    "requests" JSONB NOT NULL,
-    "friends" JSONB NOT NULL,
-    "following" JSONB NOT NULL,
-    "followers" JSONB NOT NULL,
+    "requests" JSONB,
+    "friends" JSONB,
+    "following" JSONB,
+    "followers" JSONB,
+    "image" STRING NOT NULL,
+    "imageID" STRING NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "authModel_pkey" PRIMARY KEY ("id")

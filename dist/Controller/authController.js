@@ -19,7 +19,7 @@ const streamifier_1 = require("../Utils/streamifier");
 const prisma = new client_1.PrismaClient();
 const createAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userName, email, password, image } = req.body;
+        const { userName, email, password } = req.body;
         const { secure_url, public_id } = yield (0, streamifier_1.streamUpload)(req);
         const account = yield prisma.authModel.create({
             data: {
